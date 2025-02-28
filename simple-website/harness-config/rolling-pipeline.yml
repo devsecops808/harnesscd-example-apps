@@ -53,4 +53,3 @@ pipeline:
       spec:
         connectorRef: devopsone808dockerrepo
         imagePath: devopsone808/simple-website
-        tag: <+pipeline.variables.imageTag>

@@ -2,9 +2,7 @@
 
 This directory contains Harness CD pipeline configurations for deploying the Sock Shop microservices demo application to Kubernetes.
 
-The following deployment strategies are available:
-- Canary Deployment: `canary-pipeline.yml`
-- Blue-Green Deployment: `bluegreen-pipeline.yml`
+The following deployment strategies are available for this service:
 - Rolling Deployment: `rolling-pipeline.yml`
 
 These pipelines use the same environment and infrastructure definitions as the guestbook example.
