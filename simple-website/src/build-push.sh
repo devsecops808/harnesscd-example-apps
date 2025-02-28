@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set variables
-VERSION="1.0.0"
+VERSION="latest"
 IMAGE_NAME="devopsone808/simple-website:$VERSION"
 
 # Build the Docker image

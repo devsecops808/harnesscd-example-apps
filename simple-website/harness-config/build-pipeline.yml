@@ -15,7 +15,7 @@ pipeline:
             type: KubernetesDirect
             spec:
               connectorRef: harnessk8sconnector
-              namespace: default
+              namespace: simple-website
               automountServiceAccountToken: true
               nodeSelector: {}
               os: Linux
@@ -30,10 +30,8 @@ pipeline:
                     image: alpine/git:latest
                     shell: Sh
                     command: |
-                      # Clone the repository
                       git clone https://github.com/devsecops808/harnesscd-example-apps.git
                       cd harnesscd-example-apps
-                      # If you need a specific branch
                       git checkout master
                       ls -la
               - step:
