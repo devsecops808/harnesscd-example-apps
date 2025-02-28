@@ -47,11 +47,10 @@ pipeline:
       type: String
       description: "Docker image tag to be deployed"
       value: latest
-
-artifacts:
+  artifacts:
     primary:
-        type: DockerRegistry
-        spec:
-            connectorRef: harnessdockerconnector  # Use your actual Docker connector name
-            imagePath: devopsone808/simple-website
-            tag: 1.0.0 
+      type: DockerRegistry
+      spec:
+        connectorRef: devopsone808dockerrepo
+        imagePath: devopsone808/simple-website
+        tag: <+pipeline.variables.imageTag> 
