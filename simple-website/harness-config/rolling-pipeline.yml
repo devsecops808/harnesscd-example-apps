@@ -52,4 +52,4 @@ pipeline:
       type: DockerRegistry
       spec:
         connectorRef: devopsone808dockerrepo
-        imagePath: devopsone808/simple-website
+        imagePath: docker.io/devopsone808/simple-website
