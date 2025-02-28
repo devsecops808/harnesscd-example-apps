@@ -1,0 +1,3 @@
+resources:
+- src/deployment.yaml
+- src/service.yaml

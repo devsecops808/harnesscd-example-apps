@@ -1,0 +1,25 @@
+service:
+    name: simple-website-deployment
+    identifier: simple-website-deployment
+    orgIdentifier: default
+    projectIdentifier: default_project
+    serviceDefinition:
+        type: Kubernetes
+        spec:
+            manifests:
+                - manifest:
+                    identifier: simple-website
+                    type: Kustomize
+                    spec:
+                      store:
+                        type: Github
+                        spec:
+                            connectorRef: harnessgitconnector
+                            gitFetchType: Branch
+                            basePath: simple-website
+                            folderPath: simple-website/k8s
+                            repoName: harnesscd-example-apps
+                            branch: master
+                        skipResourceVersioning: false
+                        enableDeclarativeRollback: false
+    gitOpsEnabled: false 

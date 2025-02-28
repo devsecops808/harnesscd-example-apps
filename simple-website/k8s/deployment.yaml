@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-website
+  template:
+    metadata:
+      labels:
+        app: simple-website
+    spec:
+      containers:
+      - name: simple-website
+        image: devopsone808/simple-website:1.0.0
+        ports:
+        - containerPort: 80
