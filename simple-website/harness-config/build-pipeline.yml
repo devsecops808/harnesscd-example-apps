@@ -32,8 +32,7 @@ pipeline:
                     dockerfile: Dockerfile
                     context: simple-website
                     buildArgs:
-                      - name: VERSION
-                        value: <+pipeline.sequenceId>
+                      VERSION: <+pipeline.sequenceId>
               - step:
                   name: Trigger Deployment Pipeline
                   identifier: trigger_deployment
