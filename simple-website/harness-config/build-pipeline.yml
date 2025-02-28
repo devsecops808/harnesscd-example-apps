@@ -39,7 +39,7 @@ pipeline:
                   identifier: build_and_push_image
                   type: BuildAndPushDockerRegistry
                   spec:
-                    connectorRef: harnessdockerconnector
+                    connectorRef: devopsone808dockerrepo
                     repo: devopsone808/simple-website
                     tags:
                       - <+pipeline.sequenceId>
