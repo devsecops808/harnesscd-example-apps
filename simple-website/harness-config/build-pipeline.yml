@@ -1,0 +1,76 @@
+pipeline:
+  name: simple-website-build
+  identifier: simple_website_build
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Build and Push
+        identifier: build_and_push
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: harnessk8sconnector
+              namespace: default
+              serviceAccount: default
+          execution:
+            steps:
+              - step:
+                  name: Build and Push Image
+                  identifier: build_and_push_image
+                  type: BuildAndPushDockerRegistry
+                  spec:
+                    connectorRef: harnessdockerconnector
+                    repo: devopsone808/simple-website
+                    tags:
+                      - <+pipeline.sequenceId>
+                      - latest
+                    dockerfile: Dockerfile
+                    context: simple-website
+                    buildArgs:
+                      - name: VERSION
+                        value: <+pipeline.sequenceId>
+              - step:
+                  name: Trigger Deployment Pipeline
+                  identifier: trigger_deployment
+                  type: TriggerPipeline
+                  spec:
+                    pipeline:
+                      identifier: simple_website_deployment
+                      projectIdentifier: default_project
+                      orgIdentifier: default
+                    variables:
+                      - name: imageTag
+                        value: <+pipeline.sequenceId>
+          caching:
+            enabled: true
+            paths:
+              - /root/.m2
+              - /root/.gradle
+  variables:
+    - name: buildTag
+      type: String
+      description: "Docker image tag to be built"
+      value: <+pipeline.sequenceId>
+  
+  # Optional - add a trigger to automatically run this pipeline on code changes
+  trigger:
+    name: simple-website-build-trigger
+    identifier: simple_website_build_trigger
+    enabled: true
+    type: Webhook
+    spec:
+      type: Github
+      spec:
+        connectorRef: harnessgitconnector
+        repoName: harnesscd-example-apps
+        branchName: master
+        events:
+          - type: Push
+        paths:
+          - includes:
+              - simple-website/** 

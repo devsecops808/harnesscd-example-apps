@@ -42,6 +42,11 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback 
+  variables:
+    - name: imageTag
+      type: String
+      description: "Docker image tag to be deployed"
+      value: latest
 
 artifacts:
     primary:

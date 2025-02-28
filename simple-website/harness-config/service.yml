@@ -28,5 +28,5 @@ service:
                     spec:
                         connectorRef: harnessdockerconnector
                         imagePath: devopsone808/simple-website
-                        tag: 1.0.0
+                        tag: <+pipeline.variables.imageTag>
     gitOpsEnabled: false 
