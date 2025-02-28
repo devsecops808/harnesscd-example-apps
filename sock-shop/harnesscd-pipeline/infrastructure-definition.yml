@@ -1,6 +1,6 @@
 infrastructureDefinition:
-  name: harness_k8sinfra
-  identifier: harnessk8sinfra
+  name: harness_k8sinfradep
+  identifier: harnessk8sinfradep
   description: ""
   tags: {}
   orgIdentifier: default
