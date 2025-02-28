@@ -53,13 +53,20 @@ pipeline:
             paths:
               - /root/.m2
               - /root/.gradle
+    - stage:
+        name: Deploy
+        identifier: Deploy
+        description: ""
+        type: Pipeline
+        spec:
+          org: default
+          pipeline: simple-website-deployment
+          project: default_project
   variables:
     - name: buildTag
       type: String
-      description: "Docker image tag to be built"
+      description: Docker image tag to be built
       value: <+pipeline.sequenceId>
-  
-  # Optional - add a trigger to automatically run this pipeline on code changes
   trigger:
     name: simple-website-build-trigger
     identifier: simple_website_build_trigger
@@ -75,4 +82,4 @@ pipeline:
           - type: Push
         paths:
           - includes:
-              - simple-website/** 
+              - simple-website/**
