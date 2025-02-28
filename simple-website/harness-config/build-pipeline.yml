@@ -11,6 +11,10 @@ pipeline:
         type: CI
         spec:
           cloneCodebase: true
+          codebase:
+            connectorRef: harnessgitconnector
+            repoName: harnesscd-example-apps
+            build: <+input>
           infrastructure:
             type: KubernetesDirect
             spec:
