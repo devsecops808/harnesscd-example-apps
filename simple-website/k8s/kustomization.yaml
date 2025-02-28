@@ -1,3 +1,11 @@
 resources:
 - deployment.yaml
 - service.yaml
+
+replicas:
+- name: simple-website
+  count: 1
+
+images:
+- name: devopsone808/simple-website
+  newTag: ${IMAGE_TAG}
