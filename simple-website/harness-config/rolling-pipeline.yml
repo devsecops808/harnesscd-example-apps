@@ -13,7 +13,7 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: simple-website
+            serviceRef: simple_website
           environment:
             environmentRef: harnessdevenvdep
             deployToAll: false

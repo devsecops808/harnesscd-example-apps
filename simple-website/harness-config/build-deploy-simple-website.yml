@@ -103,7 +103,7 @@ pipeline:
       type: DockerRegistry
       spec:
         connectorRef: devopsone808dockerrepo
-        imagePath: docker.io/devopsone808/simple-website
+        imagePath: devopsone808/simple-website
         tag: <+pipeline.variables.buildTag>
   trigger:
     name: simple-website-build-deploy-trigger
