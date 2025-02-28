@@ -9,16 +9,14 @@ service:
             manifests:
                 - manifest:
                     identifier: sockshop
-                    type: K8sManifest
+                    type: Kustomize
                     spec:
                       store:
                         type: Github
                         spec:
                             connectorRef: harnessgitconnector
                             gitFetchType: Branch
-                            paths:
-                                - sock-shop/kustomization.yaml
-                                - sock-shop/base/
+                            basePath: sock-shop
                             repoName: harnesscd-example-apps
                             branch: master
                         skipResourceVersioning: false
