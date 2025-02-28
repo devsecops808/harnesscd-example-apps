@@ -28,5 +28,5 @@ service:
                     spec:
                         connectorRef: devopsone808dockerrepo
                         imagePath: docker.io/devopsone808/simple-website
-                        tag: <+pipeline.variables.imageTag>
+                        tag: latest
     gitOpsEnabled: false

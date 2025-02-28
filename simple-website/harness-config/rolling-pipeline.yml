@@ -1,6 +1,6 @@
 pipeline:
-  name: simple-website-deployment
-  identifier: simple_website_deployment
+  name: simple-website-rolling-deploy
+  identifier: simple_website_rolling_deploy
   projectIdentifier: default_project
   orgIdentifier: default
   tags: {}

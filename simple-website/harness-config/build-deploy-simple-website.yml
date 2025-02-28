@@ -1,0 +1,123 @@
+pipeline:
+  name: simple-website-build-deploy
+  identifier: simple_website_build_deploy
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Build and Push
+        identifier: build_and_push
+        type: CI
+        spec:
+          cloneCodebase: false
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: harnessk8sconnector
+              namespace: simple-website
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  name: Clone Repository
+                  identifier: clone_repo
+                  type: Run
+                  spec:
+                    connectorRef: harnessk8sconnector
+                    image: alpine/git:latest
+                    shell: Sh
+                    command: |
+                      git clone https://github.com/devsecops808/harnesscd-example-apps.git
+                      cd harnesscd-example-apps
+                      git checkout master
+                      ls -la
+              - step:
+                  name: Build and Push Image
+                  identifier: build_and_push_image
+                  type: BuildAndPushDockerRegistry
+                  spec:
+                    connectorRef: devopsone808dockerrepo
+                    repo: devopsone808/simple-website
+                    tags:
+                      - <+pipeline.sequenceId>
+                      - latest
+                    dockerfile: harnesscd-example-apps/simple-website/Dockerfile
+                    context: harnesscd-example-apps/simple-website
+                    buildArgs:
+                      VERSION: <+pipeline.sequenceId>
+          caching:
+            enabled: true
+            paths:
+              - /root/.m2
+              - /root/.gradle
+          buildIntelligence:
+            enabled: true
+        description: ""
+    - stage:
+        name: Deploy Website
+        identifier: deploy_website
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: simple-website
+          environment:
+            environmentRef: harnessdevenvdep
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: harnessk8sinfradep
+          execution:
+            steps:
+              - step:
+                  name: Rolling Deployment
+                  identifier: rollingDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+            rollbackSteps:
+              - step:
+                  name: Rolling Rollback
+                  identifier: rollingRollback
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec: {}
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback 
+  variables:
+    - name: buildTag
+      type: String
+      description: "Docker image tag to be built and deployed"
+      value: <+pipeline.sequenceId>
+  artifacts:
+    primary:
+      type: DockerRegistry
+      spec:
+        connectorRef: devopsone808dockerrepo
+        imagePath: docker.io/devopsone808/simple-website
+        tag: <+pipeline.variables.buildTag>
+  trigger:
+    name: simple-website-build-deploy-trigger
+    identifier: simple_website_build_deploy_trigger
+    enabled: true
+    type: Webhook
+    spec:
+      type: Github
+      spec:
+        connectorRef: harnessgitconnector
+        repoName: harnesscd-example-apps
+        branchName: master
+        events:
+          - type: Push
+        paths:
+          - includes:
+              - simple-website/** 
