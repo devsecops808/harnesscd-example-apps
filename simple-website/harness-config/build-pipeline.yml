@@ -10,11 +10,7 @@ pipeline:
         identifier: build_and_push
         type: CI
         spec:
-          cloneCodebase: true
-          codebase:
-            connectorRef: harnessgitconnector
-            repoName: harnesscd-example-apps
-            build: <+input>
+          cloneCodebase: false
           infrastructure:
             type: KubernetesDirect
             spec:
@@ -23,6 +19,21 @@ pipeline:
               serviceAccount: default
           execution:
             steps:
+              - step:
+                  name: Clone Repository
+                  identifier: clone_repo
+                  type: Run
+                  spec:
+                    connectorRef: harnessk8sconnector
+                    image: alpine/git:latest
+                    shell: Sh
+                    command: |
+                      # Clone the repository
+                      git clone https://github.com/devsecops808/harnesscd-example-apps.git
+                      cd harnesscd-example-apps
+                      # If you need a specific branch
+                      git checkout master
+                      ls -la
               - step:
                   name: Build and Push Image
                   identifier: build_and_push_image
@@ -33,8 +44,8 @@ pipeline:
                     tags:
                       - <+pipeline.sequenceId>
                       - latest
-                    dockerfile: Dockerfile
-                    context: simple-website
+                    dockerfile: harnesscd-example-apps/simple-website/Dockerfile
+                    context: harnesscd-example-apps/simple-website
                     buildArgs:
                       VERSION: <+pipeline.sequenceId>
           caching:
