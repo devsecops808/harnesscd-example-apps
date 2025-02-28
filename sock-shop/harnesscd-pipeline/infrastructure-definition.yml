@@ -5,7 +5,7 @@ infrastructureDefinition:
   tags: {}
   orgIdentifier: default
   projectIdentifier: default_project
-  environmentRef: harnessdevenv
+  environmentRef: harnessdevenvdep
   deploymentType: Kubernetes
   type: KubernetesDirect
   spec:

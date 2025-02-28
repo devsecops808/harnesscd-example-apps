@@ -1,6 +1,6 @@
 environment:
-  name: harnessdevenv
-  identifier: harnessdevenv
+  name: harnessdevenvdep
+  identifier: harnessdevenvdep
   description: ""
   tags: {}
   type: PreProduction

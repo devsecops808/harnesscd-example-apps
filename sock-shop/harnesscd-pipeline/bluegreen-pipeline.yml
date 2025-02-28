@@ -15,7 +15,7 @@ pipeline:
           service:
             serviceRef: harnesssockshop
           environment:
-            environmentRef: harnessdevenv
+            environmentRef: harnessdevenvdep
             deployToAll: false
             infrastructureDefinitions:
               - identifier: harnessk8sinfra
