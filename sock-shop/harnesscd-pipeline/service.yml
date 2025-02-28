@@ -17,6 +17,7 @@ service:
                             connectorRef: harnessgitconnector
                             gitFetchType: Branch
                             basePath: sock-shop
+                            folderPath: sock-shop
                             repoName: harnesscd-example-apps
                             branch: master
                         skipResourceVersioning: false
