@@ -8,4 +8,4 @@ replicas:
 
 images:
 - name: devopsone808/simple-website
-  newTag: ${IMAGE_TAG}
+  newTag: <+pipeline.variables.imageTag>
