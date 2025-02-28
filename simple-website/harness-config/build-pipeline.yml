@@ -63,7 +63,7 @@ pipeline:
         type: Pipeline
         spec:
           org: default
-          pipeline: simple-website-deployment
+          pipeline: simple-website-rolling-deploy
           project: default_project
           inputs: {}
   variables:
