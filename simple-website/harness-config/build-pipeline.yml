@@ -33,18 +33,6 @@ pipeline:
                     context: simple-website
                     buildArgs:
                       VERSION: <+pipeline.sequenceId>
-              - step:
-                  name: Trigger Deployment Pipeline
-                  identifier: trigger_deployment
-                  type: TriggerPipeline
-                  spec:
-                    pipeline:
-                      identifier: simple_website_deployment
-                      projectIdentifier: default_project
-                      orgIdentifier: default
-                    variables:
-                      - name: imageTag
-                        value: <+pipeline.sequenceId>
           caching:
             enabled: true
             paths:
