@@ -5,7 +5,3 @@ resources:
 replicas:
 - name: simple-website
   count: 1
-
-images:
-- name: devopsone808/simple-website
-  newTag: <+pipeline.variables.imageTag>
