@@ -16,7 +16,9 @@ pipeline:
             spec:
               connectorRef: harnessk8sconnector
               namespace: default
-              serviceAccount: default
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
           execution:
             steps:
               - step:
@@ -53,6 +55,9 @@ pipeline:
             paths:
               - /root/.m2
               - /root/.gradle
+          buildIntelligence:
+            enabled: true
+        description: ""
     - stage:
         name: Deploy
         identifier: Deploy
@@ -62,6 +67,7 @@ pipeline:
           org: default
           pipeline: simple-website-deployment
           project: default_project
+          inputs: {}
   variables:
     - name: buildTag
       type: String
