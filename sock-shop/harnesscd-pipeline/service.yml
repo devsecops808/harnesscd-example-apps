@@ -1,6 +1,8 @@
 service:
     name: harness_sockshop
     identifier: harnesssockshop
+    orgIdentifier: default
+    projectIdentifier: default_project
     serviceDefinition:
         type: Kubernetes
         spec:
