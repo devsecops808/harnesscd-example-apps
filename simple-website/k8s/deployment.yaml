@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: simple-website
+  namespace: simple-website
 spec:
   replicas: 1
   selector:
@@ -17,3 +18,5 @@ spec:
         image: devopsone808/simple-website:latest
         ports:
         - containerPort: 80
+      imagePullSecrets:
+      - name: docker-registry-credentials

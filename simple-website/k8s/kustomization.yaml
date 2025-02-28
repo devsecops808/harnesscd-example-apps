@@ -1,3 +1,4 @@
+namespace: simple-website
 resources:
 - deployment.yaml
 - service.yaml
