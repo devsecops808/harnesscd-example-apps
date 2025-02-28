@@ -1,6 +1,6 @@
 service:
     name: simple-website
-    identifier: simple-website
+    identifier: simple_website
     orgIdentifier: default
     projectIdentifier: default_project
     serviceDefinition:
@@ -8,7 +8,7 @@ service:
         spec:
             manifests:
                 - manifest:
-                    identifier: simple-website-manifests
+                    identifier: simple_website_manifests
                     type: Kustomize
                     spec:
                       store:
@@ -26,7 +26,7 @@ service:
                 primary:
                     type: DockerRegistry
                     spec:
-                        connectorRef: harnessdockerconnector
+                        connectorRef: devopsone808dockerrepo
                         imagePath: devopsone808/simple-website
                         tag: <+pipeline.variables.imageTag>
     gitOpsEnabled: false 
